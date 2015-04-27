@@ -21,6 +21,8 @@ if(Meteor.isClient) {
         "submit .new-task" : function(event) {
             var text  = event.target.text.value;
 
+            console.log(Meteor.user().username);
+
             Tasks.insert({
                 text: text,
                 createdAt: new Date(),
@@ -42,7 +44,9 @@ if(Meteor.isClient) {
             Tasks.update(this._id, {$set: {checked: !this.checked}});
         },
         "click .delete": function() {
-            Tasks.remove(this._id);
+            if(Meteor.user().username === this.username) {
+                Tasks.remove(this._id);
+            }
         }
     });
 
