@@ -21,8 +21,6 @@ if(Meteor.isClient) {
         "submit .new-task" : function(event) {
             var text  = event.target.text.value;
 
-            console.log(Meteor.user().username);
-
             Tasks.insert({
                 text: text,
                 createdAt: new Date(),
@@ -36,7 +34,11 @@ if(Meteor.isClient) {
         },
         "change .hide-completed input": function(event) {
             Session.set("hideCompleted", event.target.checked);
+        },
+        "load .delete": function(event) {
+            console.log(event);
         }
+
     });
 
     Template.task.events({
